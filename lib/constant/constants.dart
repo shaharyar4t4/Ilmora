@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Constants {
-  
+
   static const kPrimary = Color(0xFFfcba03);
 
-  static const MaterialColor kPrimarySwatch = MaterialColor(
+  static const MaterialColor kSwatchColor = MaterialColor(
     0xFFfcba03,
     <int, Color>{
       50: Color(0xFFFFF8E1),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ilmora/constant/constants.dart';
+import 'package:ilmora/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +16,9 @@ class MyApp extends StatelessWidget {
       title: 'Ilmora',
       theme: ThemeData(
         fontFamily: 'Poppins',
-        primarySwatch: Colors.blue,
+        primarySwatch: Constants.kSwatchColor,
       ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SplashScreen(),
     );
   }
 }
-
