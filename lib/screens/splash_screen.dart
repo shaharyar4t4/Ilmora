@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Center(
             child: Text(
               "Ilmora",
-              style: TextStyle(color: Colors.black, fontSize: 30.0),
+              style: TextStyle(color: Colors.black, fontSize: 30.0, fontFamily: 'Poppins'),
             ),
           ),
           Positioned(
