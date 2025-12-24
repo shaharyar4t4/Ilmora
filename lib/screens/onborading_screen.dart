@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ilmora/constant/constants.dart';
-import 'package:ilmora/screens/home_screen.dart';
+import 'package:ilmora/screens/main_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 class OnboradingScreen extends StatefulWidget {
@@ -57,7 +57,7 @@ class _OnboradingScreenState extends State<OnboradingScreen> {
           onDone: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => MainScreen()),
             );
           },
 
@@ -65,7 +65,7 @@ class _OnboradingScreenState extends State<OnboradingScreen> {
           next: const Icon(Icons.arrow_forward, color: Colors.black),
           done: const Text(
             "Done",
-            style: TextStyle(fontWeight: FontWeight.w700, color: Colors.black),
+            style: TextStyle( color: Colors.black),
           ),
           dotsDecorator: DotsDecorator(
             size: const Size.square(10.0),

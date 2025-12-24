@@ -10,18 +10,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: Text(
-            "Home Screen",
-            style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+    return SafeArea(child: Scaffold(
+      body: Center(
+        child: Text("Home Screen"),
       ),
-    );
+    ),);
   }
 }
