@@ -17,6 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins',
         primarySwatch: Constants.kSwatchColor,
+        primaryColor: Constants.kPrimary,
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: SplashScreen(),
     );

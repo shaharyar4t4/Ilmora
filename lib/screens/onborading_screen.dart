@@ -15,6 +15,7 @@ class _OnboradingScreenState extends State<OnboradingScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: IntroductionScreen(
           pages: [
             PageViewModel(
@@ -28,9 +29,31 @@ class _OnboradingScreenState extends State<OnboradingScreen> {
               ),
               image: Center(child: Image.asset('assets/image/quran.png')),
             ),
+            PageViewModel(
+              title: "Prayer Alerts",
+              bodyWidget: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Choose your adhan, which prayer to be notified of and how often", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.0),))],
+              ),
+              image: Center(child: Image.asset('assets/image/prayer.png')),
+            ),
+             PageViewModel(
+              title: "Build better habits",
+              bodyWidget: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Make Islamic practices a part of your daily life in a way that best suits your life", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.0),))],
+              ),
+              image: Center(child: Image.asset('assets/image/zakat.png')),
+            ),
           ],
-          showSkipButton: true,
-          skip: const Icon(Icons.skip_next),
+          // showSkipButton: true,
+          // skip: const Icon(Icons.skip_next),
           onDone: () {
             Navigator.pushReplacement(
               context,
@@ -47,8 +70,8 @@ class _OnboradingScreenState extends State<OnboradingScreen> {
           dotsDecorator: DotsDecorator(
             size: const Size.square(10.0),
             activeSize: const Size(20.0, 10.0),
-            // activeColor: Theme.of(context).colorScheme.secondary,
-            color: Constants.kPrimary,
+            activeColor: Constants.kPrimary,
+            color: Colors.grey,
             spacing: const EdgeInsets.symmetric(horizontal: 3.0),
             activeShape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25.0),
