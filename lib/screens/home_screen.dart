@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:ilmora/model/aya_of_the_day.dart';
+import 'package:ilmora/services/api_services.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,7 +12,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _hijri = HijriCalendar.now();
+
+  ApiServices _apiServices = ApiServices();
+  AyaOfTheDay? data;
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
     var format = DateFormat('EEE, d MMM yyyy');
     var formatted = format.format(day);
 
+    _apiServices.getAyaOfTheDay().then((value) => data = value);
     return SafeArea(
       child: Scaffold(
-        body: Stack(
+        body: Column(
           children: [
             Container(
               height: _size.height * 0.22,
@@ -93,6 +99,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            Expanded(child: SingleChildScrollView(
+              padding: EdgeInsetsDirectional.only(top: 10, bottom: 20),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+
+                    ),
+                    child: Column(
+                      children: [
+                        Text("Quran Aya of the Day",
+                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                        Divider(
+                          color: Colors.black,
+                          thickness: 0.5,
+                        ),
+                        Text(data!.arText!,
+                        style: TextStyle(color: Colors.black54),
+                        ),
+                        Text(data!.enTran!,
+                        style: TextStyle(color: Colors.black54),
+                        ),
+                        RichText(text: TextSpan(
+                          children: <InlineSpan>[
+                            //15:11
+                          ]
+                        ))
+                      ],
+                    )
+                  ),
+                ],
+              ),
+            ))
           ],
         ),
       ),
