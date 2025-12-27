@@ -12,10 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   ApiServices _apiServices = ApiServices();
-  AyaOfTheDay? data;
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
     var format = DateFormat('EEE, d MMM yyyy');
     var formatted = format.format(day);
 
-    _apiServices.getAyaOfTheDay().then((value) => data = value);
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -51,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       formatted,
                       style: TextStyle(color: Colors.white, fontSize: 30),
                     ),
-                
+
                     RichText(
                       text: TextSpan(
                         children: <InlineSpan>[
@@ -99,41 +95,101 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Expanded(child: SingleChildScrollView(
-              padding: EdgeInsetsDirectional.only(top: 10, bottom: 20),
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
 
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsetsDirectional.only(top: 10, bottom: 20),
+                child: Column(
+                  children: [
+                    FutureBuilder<AyaOfTheDay>(
+                      future: _apiServices.getAyaOfTheDay(),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return Icon(Icons.sync_problem);
+                          case ConnectionState.waiting:
+                          case ConnectionState.active:
+                            return CircularProgressIndicator();
+                          case ConnectionState.done:
+                            return Container(
+                              margin: EdgeInsetsDirectional.all(16),
+                              padding: EdgeInsetsDirectional.all(20),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 1,
+                                   
+                                    offset: Offset(0, 0.1),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Quran Aya of the Day",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Divider(color: Colors.black, thickness: 0.5),
+                                  Text(
+                                    snapshot.data!.arText!,
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 18,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  
+                                  const SizedBox(height: 10,),
+                                  Text(
+                                    snapshot.data!.enTran!,
+                                    style: TextStyle(
+                                      color: Colors.black54,
+                                      fontSize: 18,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      children: <InlineSpan>[
+                                        WidgetSpan(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              snapshot.data!.surNumber!
+                                                  .toString(),
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                          ),
+                                        ),
+                                        WidgetSpan(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              snapshot.data!.surEnName!
+                                                  .toString(),
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                        }
+                      },
                     ),
-                    child: Column(
-                      children: [
-                        Text("Quran Aya of the Day",
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                        ),
-                        Divider(
-                          color: Colors.black,
-                          thickness: 0.5,
-                        ),
-                        Text(data!.arText!,
-                        style: TextStyle(color: Colors.black54),
-                        ),
-                        Text(data!.enTran!,
-                        style: TextStyle(color: Colors.black54),
-                        ),
-                        RichText(text: TextSpan(
-                          children: <InlineSpan>[
-                            //15:11
-                          ]
-                        ))
-                      ],
-                    )
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ))
+            ),
           ],
         ),
       ),
