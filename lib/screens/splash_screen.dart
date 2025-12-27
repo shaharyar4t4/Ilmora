@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void getData() async{
     final prefs = await SharedPreferences.getInstance();
     prefs.getBool("alreadyUsed") ?? false;
-
+    // onboreding screen show on will first time
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:ilmora/model/aya_of_the_day.dart';
 import 'package:ilmora/services/api_services.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +14,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ApiServices _apiServices = ApiServices();
+
+  void setData() async{
+    final prefs= await SharedPreferences.getInstance();
+    prefs.setBool("alreadyUsed", true);
+  }
 
   @override
   Widget build(BuildContext context) {
