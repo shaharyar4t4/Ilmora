@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:ilmora/screens/main_screen.dart';
 import 'package:ilmora/screens/onborading_screen.dart';
@@ -13,25 +12,25 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-  bool alreadyUsed =false;
-
-  void getData() async{
+  Future<void> _checkFirstTimeAndNavigate() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.getBool("alreadyUsed") ?? false;
-    // onboreding screen show on will first time
+    final alreadyUsed = prefs.getBool('alreadyUsed') ?? false;
+
+    await Future.delayed(const Duration(seconds: 3));
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            alreadyUsed ? const MainScreen() : const OnboradingScreen(),
+      ),
+    );
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getData();
-    Timer(const Duration(seconds: 3), () {
-      MaterialPageRoute(builder: (context){
-        return alreadyUsed? MainScreen(): OnboradingScreen();
-      });
-    });
+    _checkFirstTimeAndNavigate();
   }
 
   @override
@@ -39,10 +38,14 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Center(
+          const Center(
             child: Text(
               "Ilmora",
-              style: TextStyle(color: Colors.black, fontSize: 40.0, fontFamily: 'Poppins'),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 40,
+                fontFamily: 'Poppins',
+              ),
             ),
           ),
           Positioned(
