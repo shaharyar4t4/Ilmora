@@ -6,6 +6,7 @@ import 'package:ilmora/model/aya_of_the_day.dart';
 import 'package:ilmora/model/juz.dart';
 import 'package:ilmora/model/sajada.dart';
 import 'package:ilmora/model/surah.dart';
+import 'package:ilmora/model/surahTranslationlist.dart';
 
 class ApiServices {
   final String endPointUrl = "http://api.alquran.cloud/v1/surah";
@@ -91,16 +92,11 @@ class ApiServices {
   }
 }
 
-  // Future<JuzModel> getJuzz(int index) async {
-  //   String url = "https://api.alquran.cloud/v1/juz/$index/quran-uthmani";
+// translation
 
-  //   final response = await http.get(Uri.parse(url));
-
-  //   if (response.statusCode == 200) {
-  //     return JuzModel.fromJSON(json.decode(response.body));
-  //   } else {
-  //     print("Failed to load");
-  //     throw Exception("Failad to load Post");
-  //   }
-  // }
+Future<SurahTranslationList> getTranslation(int index) async{
+  final url = "https://quranenc.com/api/v1/translation/sura/urdu_junagarhi/$index";
+  var res = await http.get(Uri.parse(url));
+  return SurahTranslationList.fromJSON(jsonDecode(res.body));
+}
 }

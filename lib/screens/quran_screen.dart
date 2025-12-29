@@ -3,6 +3,7 @@ import 'package:ilmora/constant/constants.dart';
 import 'package:ilmora/model/sajada.dart';
 import 'package:ilmora/model/surah.dart';
 import 'package:ilmora/screens/juz_screen.dart';
+import 'package:ilmora/screens/surah_detail.dart';
 import 'package:ilmora/services/api_services.dart';
 import 'package:ilmora/widget/sajada_custom_title.dart';
 import 'package:ilmora/widget/surah_custom_title.dart';
@@ -66,9 +67,16 @@ class _QuranScreenState extends State<QuranScreen> {
                       return ListView.builder(
                         itemCount: surah!.length,
                         itemBuilder: (context, index) => SurahCustomListTitle(
-                          context: context,
-                          ontap: () {},
                           surah: surah[index],
+                          context: context,
+
+                          ontap: () {
+                            setState(() {
+                              Constants.surahIndex =(index +1);
+                            });
+
+                          Navigator.pushNamed(context, SurahDetail.id);
+                          },
                         ),
                       );
                     }
@@ -107,10 +115,11 @@ class _QuranScreenState extends State<QuranScreen> {
                         setState(() {
                           Constants.juzIndex = (index + 1);
                         });
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => JuzScreen()),
-                        );
+                        Navigator.pushNamed(context, JuzScreen.id);
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (_) => JuzScreen()),
+                        // );
                       },
                       child: Card(
                         elevation: 4,

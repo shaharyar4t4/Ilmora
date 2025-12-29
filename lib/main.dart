@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ilmora/constant/constants.dart';
+import 'package:ilmora/screens/juz_screen.dart';
 import 'package:ilmora/screens/splash_screen.dart';
+import 'package:ilmora/screens/surah_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +23,10 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
       ),
       home: SplashScreen(),
+      routes: {
+        JuzScreen.id: (context)=> JuzScreen(),
+        SurahDetail.id: (context) => SurahDetail(),
+      },
     );
   }
 }
