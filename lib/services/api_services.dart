@@ -79,15 +79,28 @@ class ApiServices {
 
   // list of juzz
   Future<JuzModel> getJuzz(int index) async {
-    String url = "https://api.alquran.cloud/v1/juz/$index/quran-uthmani";
+  String url =
+      "https://api.alquran.cloud/v1/juz/$index/quran-uthmani";
 
-    final response = await http.get(Uri.parse(url));
+  final response = await http.get(Uri.parse(url));
 
-    if (response.statusCode == 200) {
-      return JuzModel.fromJSON(json.decode(response.body));
-    } else {
-      print("Failed to load");
-      throw Exception("Failad to load Post");
-    }
+  if (response.statusCode == 200) {
+    return JuzModel.fromJSON(jsonDecode(response.body));
+  } else {
+    throw Exception("Failed to load Juz");
   }
+}
+
+  // Future<JuzModel> getJuzz(int index) async {
+  //   String url = "https://api.alquran.cloud/v1/juz/$index/quran-uthmani";
+
+  //   final response = await http.get(Uri.parse(url));
+
+  //   if (response.statusCode == 200) {
+  //     return JuzModel.fromJSON(json.decode(response.body));
+  //   } else {
+  //     print("Failed to load");
+  //     throw Exception("Failad to load Post");
+  //   }
+  // }
 }

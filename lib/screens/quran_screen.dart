@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ilmora/constant/constants.dart';
+import 'package:ilmora/model/sajada.dart';
 import 'package:ilmora/model/surah.dart';
+import 'package:ilmora/screens/juz_screen.dart';
 import 'package:ilmora/services/api_services.dart';
+import 'package:ilmora/widget/sajada_custom_title.dart';
 import 'package:ilmora/widget/surah_custom_title.dart';
 
 class QuranScreen extends StatefulWidget {
@@ -21,10 +24,9 @@ class _QuranScreenState extends State<QuranScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Constants.kPrimary,
-          title: Text("Quran", style: TextStyle(color: Colors.white),),
+          title: Text("Quran", style: TextStyle(color: Colors.white)),
           centerTitle: true,
           bottom: TabBar(
-            
             tabs: [
               Text(
                 "Surah",
@@ -43,7 +45,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 ),
               ),
               Text(
-                "Jaz",
+                "Juz",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
@@ -54,14 +56,13 @@ class _QuranScreenState extends State<QuranScreen> {
           ),
         ),
         body: TabBarView(
-          
           children: <Widget>[
             FutureBuilder(
               future: apiServices.getSurah(),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Surah>> snapshot) {
-                    if(snapshot.hasData){
-                      List<Surah>? surah = snapshot.data; 
+                    if (snapshot.hasData) {
+                      List<Surah>? surah = snapshot.data;
                       return ListView.builder(
                         itemCount: surah!.length,
                         itemBuilder: (context, index) => SurahCustomListTitle(
@@ -70,11 +71,65 @@ class _QuranScreenState extends State<QuranScreen> {
                           surah: surah[index],
                         ),
                       );
-                    }return Center(child: CircularProgressIndicator());
-                  } 
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  },
             ),
-            Center(child: Text(" It's a rainy here")),
-            Center(child: Text("It's sunny here")),
+            FutureBuilder(
+              future: apiServices.getSadaja(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Sajada>> snapshot) {
+                    if (snapshot.hasData) {
+                      List<Sajada>? sajada = snapshot.data;
+                      return ListView.builder(
+                        itemCount: sajada!.length,
+                        itemBuilder: (context, index) => SajadaCustomListTitle(
+                          context: context,
+                          ontap: () {},
+                          sajada: sajada[index],
+                        ),
+                      );
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  },
+            ),
+            GestureDetector(
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                child: GridView.builder(
+                  itemCount: 30,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                  ),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          Constants.juzIndex = (index + 1);
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => JuzScreen()),
+                        );
+                      },
+                      child: Card(
+                        elevation: 4,
+                        color: Colors.blueGrey,
+                        child: Center(
+                          child: Text(
+                            '${index + 1}',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+
+            // Center(child: Text(" It's a rainy here")),
+            // Center(child: Text("It's sunny here")),
           ],
         ),
       ),
