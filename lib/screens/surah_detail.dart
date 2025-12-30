@@ -19,7 +19,6 @@ class SurahDetail extends StatefulWidget {
 class _SurahDetailState extends State<SurahDetail> {
 
   final ApiServices _apiServices = ApiServices();
-  // SolidController _controller = SolidController();
   Translation? _translation = Translation.urdu;
   
 

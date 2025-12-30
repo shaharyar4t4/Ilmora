@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:ilmora/model/aya_of_the_day.dart';
 import 'package:ilmora/model/juz.dart';
+import 'package:ilmora/model/qari.dart';
 import 'package:ilmora/model/sajada.dart';
 import 'package:ilmora/model/surah.dart';
 import 'package:ilmora/model/surahTranslationlist.dart';
@@ -14,6 +15,7 @@ class ApiServices {
 
   final List<Surah> surahList = [];
   final List<Sajada> sajadaList = [];
+  final List<Qari> qariList =[];
 
   // aya of the Day
   Future<AyaOfTheDay> getAyaOfTheDay() async {
@@ -93,7 +95,6 @@ class ApiServices {
 }
 
 // translation
-
 Future<SurahTranslationList> getTranslation(int index, int translationIndex) async{
   String lan = "";
 
@@ -109,5 +110,21 @@ Future<SurahTranslationList> getTranslation(int index, int translationIndex) asy
   final url = "https://quranenc.com/api/v1/translation/sura/$lan/$index";
   var res = await http.get(Uri.parse(url));
   return SurahTranslationList.fromJSON(jsonDecode(res.body));
+}
+
+//qari list
+Future <List<Qari>> getQariList() async{
+  final url = 'https://quranicaudio.com/api/qaris';
+
+  final res = await http.get(Uri.parse(url));
+
+  jsonDecode(res.body).forEach((element){
+    if(qariList.length< 20)
+    qariList.add(Qari.fromjson(element));
+  });
+
+  qariList.sort((a,b) => a.name!.compareTo(b.name!));
+
+  return qariList;
 }
 }

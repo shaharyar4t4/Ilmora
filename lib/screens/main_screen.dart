@@ -20,6 +20,7 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(),
     QuranScreen(),
     AudioScreen(),
+    QariListScreen(),
     PrayerScreen(),
   ];
 
