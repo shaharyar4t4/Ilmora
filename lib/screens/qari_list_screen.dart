@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ilmora/constant/constants.dart';
 import 'package:ilmora/model/qari.dart';
+import 'package:ilmora/screens/audio_surah_screen.dart';
 import 'package:ilmora/services/api_services.dart';
 import 'package:ilmora/widget/qari_list_title.dart';
 
@@ -60,7 +61,9 @@ class _QariListScreenState extends State<QariListScreen> {
               
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index){
-                return QariListTitle(qari: snapshot.data![index], ontap:(){});
+                return QariListTitle(qari: snapshot.data![index], ontap:(){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> AudioSurahScreen(qari: snapshot.data![index])));
+                });
               });
           })
           
