@@ -5,6 +5,7 @@ import 'package:ilmora/constant/constants.dart';
 import 'package:ilmora/screens/audio_screen.dart';
 import 'package:ilmora/screens/home_screen.dart';
 import 'package:ilmora/screens/prayer_screen.dart';
+import 'package:ilmora/screens/qari_list_screen.dart';
 import 'package:ilmora/screens/quran_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -19,7 +20,6 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> _widgetsList = [
     HomeScreen(),
     QuranScreen(),
-    AudioScreen(),
     QariListScreen(),
     PrayerScreen(),
   ];
