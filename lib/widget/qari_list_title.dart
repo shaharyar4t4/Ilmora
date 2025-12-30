@@ -19,6 +19,7 @@ class _QariListTitleState extends State<QariListTitle> {
       child: Padding(
         padding: EdgeInsets.all(4.0),
         child: Container(
+          margin: EdgeInsets.only(bottom: 6),
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,

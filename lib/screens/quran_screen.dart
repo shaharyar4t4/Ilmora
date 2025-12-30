@@ -80,7 +80,9 @@ class _QuranScreenState extends State<QuranScreen> {
                         ),
                       );
                     }
-                    return Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator(
+                      color: Constants.kPrimary,
+                    ));
                   },
             ),
             FutureBuilder(
@@ -98,7 +100,9 @@ class _QuranScreenState extends State<QuranScreen> {
                         ),
                       );
                     }
-                    return Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator(
+                      color: Constants.kPrimary,
+                    ));
                   },
             ),
             GestureDetector(
@@ -116,10 +120,7 @@ class _QuranScreenState extends State<QuranScreen> {
                           Constants.juzIndex = (index + 1);
                         });
                         Navigator.pushNamed(context, JuzScreen.id);
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (_) => JuzScreen()),
-                        // );
+               
                       },
                       child: Card(
                         elevation: 4,

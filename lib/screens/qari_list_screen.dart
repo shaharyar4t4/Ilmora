@@ -25,7 +25,6 @@ class _QariListScreenState extends State<QariListScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -47,20 +46,25 @@ class _QariListScreenState extends State<QariListScreen> {
             ],),
             ),
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 13,),
           Expanded(child: FutureBuilder(
           future: apiServices.getQariList(), 
           builder: (BuildContext context, AsyncSnapshot<List<Qari>> snapshot){
             if(snapshot.hasError){
               return Center(child: Text('Qari\'s data not found'),);
             }if( snapshot.connectionState == ConnectionState.waiting){
-              return Center( child: CircularProgressIndicator(),);
+              return Center( child: CircularProgressIndicator(
+                color: Constants.kPrimary,
+              ),);
             } return ListView.builder(
+              
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index){
                 return QariListTitle(qari: snapshot.data![index], ontap:(){});
               });
-          })),
+          })
+          
+          ),
           
         ],
       ),
