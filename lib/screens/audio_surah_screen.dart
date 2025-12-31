@@ -20,14 +20,13 @@ class _AudioSurahScreenState extends State<AudioSurahScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Constants.kPrimary,
           elevation: 0,
           title: Text(
             "Surah List",
             style: TextStyle(
-              color: Colors.black,
+              color: Colors.white,
               fontSize: 20,
-              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -93,22 +92,22 @@ class _AudioSurahScreenState extends State<AudioSurahScreen> {
             alignment: Alignment.center,
             height: 30,
             width: 40,
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.black,
             ),
             child: Text(
-              (number).toString(), style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+              (number).toString(), style: TextStyle(color: Colors.white,),
             ),
           ),
           SizedBox(width: 20,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text( surahName!, textAlign: TextAlign.end, style: TextStyle( color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
+              Text( surahName!, textAlign: TextAlign.end, style: TextStyle( color: Colors.black, fontSize: 18),),
               SizedBox(height: 3,),
-              Text("Total Aya $totalAya", style: TextStyle(color: Colors.black54, fontSize: 16), )
+              Text("Total Aya $totalAya", style: TextStyle(color: Colors.black54, fontSize: 14), )
             ],
           ),
           Spacer(),

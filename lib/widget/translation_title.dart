@@ -44,11 +44,11 @@ class TranslationTitle extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     child: Text(
                       surahTranslation.aya!,
-                      style: TextStyle(color: Colors.white, fontSize: 14),
+                      style: TextStyle(color: Colors.black, fontSize: 14),
                     ),
                   ),
                 ),
