@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
+import 'package:ilmora/constant/constants.dart';
 import 'qiblah_compass.dart';
 
 class QiblahScreen extends StatelessWidget {
@@ -10,9 +11,12 @@ class QiblahScreen extends StatelessWidget {
     final deviceSupport = FlutterQiblah.androidDeviceSensorSupport();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Qiblah Compass")),
+      appBar: AppBar(
+        backgroundColor: Constants.kPrimary,
+        centerTitle: true,
+        title: const Text("Qiblah Compass", style: TextStyle(color: Colors.white),)),
       body: Container(
-        color: Colors.black12,  
+        color: Colors.white,  
         child: FutureBuilder<bool?>(
           future: deviceSupport,
           builder: (_, snapshot) {

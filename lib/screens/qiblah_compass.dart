@@ -101,7 +101,7 @@ class QiblahCompassWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: 320, // ✅ FIXED SIZE
+        height: 400, // ✅ FIXED SIZE
         width: 320,
         child: StreamBuilder<QiblahDirection>(
           stream: FlutterQiblah.qiblahStream,
@@ -130,12 +130,16 @@ class QiblahCompassWidget extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 10,
-                  child: Text(
-                    "${qiblah.offset.toStringAsFixed(1)}°",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                
+                  bottom: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top:30),
+                    child: Text(
+                      "${qiblah.offset.toStringAsFixed(1)}°",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 )

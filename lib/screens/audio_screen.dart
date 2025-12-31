@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ilmora/constant/constants.dart';
 import 'package:ilmora/model/qari.dart';
 import 'package:ilmora/model/surah.dart';
 import 'package:just_audio/just_audio.dart';
@@ -100,7 +101,10 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
     final surah = widget.list![currentIndex];
 
     return Scaffold(
-      appBar: AppBar(title: Text(surah.englishName ?? ""), centerTitle: true),
+      appBar: AppBar(
+        backgroundColor: Constants.kPrimary,
+        
+        title: Text(surah.englishName ?? "", style: TextStyle(color: Colors.white),), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -108,7 +112,7 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
           children: [
             Text(
               surah.englishName ?? "",
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 22,),
             ),
             const SizedBox(height: 10),
 
@@ -126,6 +130,7 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
                 return Column(
                   children: [
                     Slider(
+                      activeColor: Constants.kPrimary,
                       min: 0,
                       max: data?.duration.inSeconds.toDouble() ?? 0,
                       value: data?.position.inSeconds.toDouble() ?? 0,

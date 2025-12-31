@@ -204,6 +204,7 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:ilmora/constant/constants.dart';
 import 'package:ilmora/model/aya_of_the_day.dart';
 import 'package:ilmora/services/api_services.dart';
 import 'package:intl/intl.dart';
@@ -303,7 +304,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            /// AYAH OF THE DAY
             Expanded(
               child: SingleChildScrollView(
                 child: FutureBuilder<AyaOfTheDay>(
@@ -368,7 +368,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.green),
+            decoration: BoxDecoration(color: Constants.kPrimary),
             child: Align(
               alignment: Alignment.bottomLeft,
               child: Text(
@@ -379,7 +379,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           ListTile(
-            leading: const Icon(Icons.explore),
+            leading: const Icon(Icons.explore, color: Constants.kPrimary,),
             title: const Text("Qiblah Compass"),
             onTap: () {
               Navigator.pop(context);
