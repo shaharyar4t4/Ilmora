@@ -147,7 +147,6 @@ class _AudioScreenState extends State<AudioScreen> with WidgetsBindingObserver {
 
             const SizedBox(height: 30),
 
-            /// ▶ controls
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
