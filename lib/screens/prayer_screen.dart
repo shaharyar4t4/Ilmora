@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:adhan_dart/adhan_dart.dart';
-import 'package:ilmora/constant/constants.dart';
+import 'package:adhan/adhan.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
+import 'package:ilmora/constant/constants.dart';
 
 class PrayerScreen extends StatefulWidget {
   const PrayerScreen({super.key});
@@ -10,117 +10,72 @@ class PrayerScreen extends StatefulWidget {
   @override
   State<PrayerScreen> createState() => _PrayerScreenState();
 }
-
+ 
 class _PrayerScreenState extends State<PrayerScreen> {
   final Location location = Location();
-
-  double? latitude;
-  double? longitude;
-
-  /// Get current location
-  Future<void> getLoc() async {
-    bool serviceEnabled;
-    PermissionStatus permissionGranted;
-
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) return;
-    }
-
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) return;
-    }
-
-    final locData = await location.getLocation();
-    latitude = locData.latitude;
-    longitude = locData.longitude;
-  }
+  double? latitude, longitude;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Constants.kPrimary,
-          centerTitle: true,
-          title: const Text(
-            "Prayer Timings",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        body: FutureBuilder(
-          future: getLoc(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Constants.kPrimary,
+        title: const Text("Prayer Timing", style: TextStyle(color: Colors.white),),
+        centerTitle: true,
+      ),
+      body: FutureBuilder(
+        future: getLoc(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final coordinates = Coordinates(
+            latitude ?? 33.7699,
+            longitude ?? 72.8248,
+          );
+          final params = CalculationMethod.karachi.getParameters();
+          params.madhab = Madhab.hanafi;
 
-            if (latitude == null || longitude == null) {
-              return const Center(child: Text("Location not available"));
-            }
+          final prayerTimes = PrayerTimes.today(coordinates, params);
 
-            final coordinates = Coordinates(latitude!, longitude!);
-
-            final CalculationParameters params =
-                CalculationMethodParameters.karachi();
-            params.madhab = Madhab.hanafi;
-
-            final DateTime now = DateTime.now().toLocal();
-
-            final PrayerTimes prayerTimes = PrayerTimes(
-              coordinates: coordinates,
-              date: now,
-              calculationParameters: params,
-            );
-
-            return Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                children: [
-                  buildRow("Fajr", prayerTimes.fajr),
-                  divider(),
-                  buildRow("Sunrise", prayerTimes.sunrise),
-                  divider(),
-                  buildRow("Dhuhr", prayerTimes.dhuhr),
-                  divider(),
-                  buildRow("Asr", prayerTimes.asr),
-                  divider(),
-                  buildRow("Maghrib", prayerTimes.maghrib),
-                  divider(),
-                  buildRow("Isha", prayerTimes.isha),
-                ],
-              ),
-            );
-          },
-        ),
+          return Column(
+            children: [
+              buildRow("Fajr", prayerTimes.fajr),
+              buildRow("Sunrise", prayerTimes.sunrise),
+              buildRow("Dhuhr", prayerTimes.dhuhr),
+              buildRow("Asr", prayerTimes.asr),
+              buildRow("Maghrib", prayerTimes.maghrib),
+              buildRow("Isha", prayerTimes.isha),
+            ],
+          );
+        },
       ),
     );
   }
 
-  /// UI Helper
-  Widget buildRow(String title, DateTime? time) {
+  Widget buildRow(String title, DateTime time) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 14),
+      padding: const EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            time != null ? DateFormat.jm().format(time) : "--:--",
-            style: const TextStyle(fontSize: 16),
-          ),
+          Text(title, style: const TextStyle(fontSize: 18,)),
+          Text(DateFormat.jm().format(time)),
         ],
       ),
     );
   }
+  Future<void> getLoc() async {
+    if (!await location.serviceEnabled()) {
+      await location.requestService();
+    }
 
-  Widget divider() {
-    return const Divider(thickness: 1);
+    if (await location.hasPermission() == PermissionStatus.denied) {
+      await location.requestPermission();
+    }
+
+    final loc = await location.getLocation();
+    latitude = loc.latitude;
+    longitude = loc.longitude;
   }
 }
