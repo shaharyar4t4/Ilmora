@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ilmora/constant/constants.dart';
 import 'package:ilmora/screens/juz_screen.dart';
 import 'package:ilmora/screens/splash_screen.dart';
