@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ilmora/constant/constants.dart';
+import 'package:ilmora/controller/tafseer_controller.dart';
 import 'package:ilmora/model/surahTranslationlist.dart';
+import 'package:ilmora/services/api_services.dart';
 
 class TranslationTitle extends StatelessWidget {
   final int index;
   final SurahTranslation surahTranslation;
 
   TranslationTitle({required this.index, required this.surahTranslation});
+  final _apiServices = ApiServices();
+  final _tefseerController = Get.put(TafseerController());
 
   @override
   Widget build(BuildContext context) {

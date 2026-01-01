@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ilmora/constant/constants.dart';
 import 'package:ilmora/screens/juz_screen.dart';
 import 'package:ilmora/screens/splash_screen.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ilmora',
       theme: ThemeData(

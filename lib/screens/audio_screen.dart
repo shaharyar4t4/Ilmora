@@ -14,7 +14,7 @@ class AudioScreen extends StatefulWidget {
   });
 
   final Qari qari;
-  final int index;
+final int index;
   final List<Surah>? list;
 
   @override
