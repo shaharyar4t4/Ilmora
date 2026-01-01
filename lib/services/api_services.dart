@@ -8,8 +8,6 @@ import 'package:ilmora/model/qari.dart';
 import 'package:ilmora/model/sajada.dart';
 import 'package:ilmora/model/surah.dart';
 import 'package:ilmora/model/surahTranslationlist.dart';
-import 'package:ilmora/model/tafseer.dart';
-import 'package:ilmora/model/tafseer_auther.dart';
 
 class ApiServices {
   final String endPointUrl = "http://api.alquran.cloud/v1/surah";
@@ -130,22 +128,4 @@ Future <List<Qari>> getQariList() async{
   return qariList;
 }
 
-// get the tafseer 
-Future<List<TafseerAuthor>> getTafseerAuthors() async{
-  const url = "http://api.quran-tafseer.com/tafseer/";
-  final res = await http.get(Uri.parse(url));
-
-  final List<dynamic> data = jsonDecode(utf8.decode(res.bodyBytes));
-  final List<TafseerAuthor> authors = data.map((json) => TafseerAuthor.fromJson(json)).toList();
-  authors.sort((a,b)=> a.id!.compareTo(b.id!));
-  return authors;
-}
-
-Future<Tafseer> getTafseer(int surahNumber, String ayahNumber, int tafseerId) async {
-  String url = "http://api.quran-tafseer.com/tafseer/$tafseerId/$surahNumber/$ayahNumber";
-
-  final res = await http.get(Uri.parse(url));
-  final data = jsonDecode(utf8.decode(res.bodyBytes));
-  return Tafseer.fromJson(data);
-}
 }

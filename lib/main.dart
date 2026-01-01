@@ -6,6 +6,8 @@ import 'package:ilmora/screens/splash_screen.dart';
 import 'package:ilmora/screens/surah_detail.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ilmora',
       theme: ThemeData(
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
       ),
       home: SplashScreen(),
       routes: {
-        JuzScreen.id: (context)=> JuzScreen(),
+        JuzScreen.id: (context) => JuzScreen(),
         SurahDetail.id: (context) => SurahDetail(),
       },
     );
